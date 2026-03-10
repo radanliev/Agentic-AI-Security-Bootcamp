@@ -1,0 +1,154 @@
+#Running a Single Prompt (Standalone, Not Agent Loop). If all you want is to run a single prompt and get a response, you don’t need an agent at all. You can do this directly by initialising a chat model and calling invoke():
+
+from langchain.chat_models import init_chat_model
+import os
+
+os.environ["OPENAI_API_KEY"] = "sk-..."
+
+model = init_chat_model("gpt-5.2")
+response = model.invoke("Explain quantum entanglement.")
+print(response)
+
+#Running an Agent With a Single Prompt. If you do want to run an agent (i.e., have LangChain reason about tools etc.), the pattern looks like:
+
+from langchain.agents import create_agent
+
+# Initialise model and list of tools (if any)
+model = init_chat_model("gpt-5.2")
+
+# Example: no tools, single prompt
+agent = create_agent(model, tools=[], system_prompt="You are an agent")
+result = agent.invoke({"messages": [{"role": "user", "content": "Summarise LangChain models docs."}]})
+print(result)
+
+#Agent vs Model
+	•	Model (init_chat_model) = direct LLM interface, suitable for single prompt calls.  ￼
+	•	Agent (create_agent) = loop that uses a model and tool abstractions to solve goals.
+
+#Completely Free Tools (Local, No API Charges). These run entirely on your machine.
+(A) Python Functions as Tools (Zero Cost)
+Any deterministic Python function can be exposed as a LangChain tool:
+
+from langchain.tools import tool
+
+@tool
+def calculate(expression: str) -> str:
+    """Evaluate a mathematical expression."""
+    return str(eval(expression))
+
+This is the most robust and controllable approach.
+
+Typical free tool patterns:
+	•	Mathematical solvers (sympy, numpy)
+	•	Local file system access
+	•	JSON/YAML parsers
+	•	Static analysis
+	•	Custom domain logic
+	•	Rule-based validators
+	•	AIBOM parsers if you are working on AI supply chain governance
+
+No external API required.
+
+(B) Local File System Tools
+
+LangChain provides wrappers for:
+	•	Directory readers
+	•	File loaders (PDF, CSV, Markdown)
+	•	Text splitters
+
+All free if files are local.
+
+Example:
+
+from langchain_community.tools.file_management import ReadFileTool
+
+(C) Local Vector Stores (Free)
+
+You can use:
+	•	FAISS
+	•	Chroma (local mode)
+	•	Annoy
+
+These run locally and incur zero cost.
+
+Example:
+
+pip install faiss-cpu chromadb
+
+(D) Local LLMs (Free, Hardware Dependent)
+You can run models locally via:
+	•	Ollama
+	•	LM Studio
+	•	llama.cpp
+	•	HuggingFace Transformers
+LangChain supports these.
+Example with Ollama:
+
+from langchain_community.chat_models import ChatOllama
+
+model = ChatOllama(model="llama3")
+
+No API cost — but you need sufficient RAM/VRAM.
+
+#“Free Tier” (Limited, Rate-Limited)
+
+These are technically free but not unlimited:
+	•	OpenAI free credits (if available)
+	•	HuggingFace Inference API (limited quota)
+	•	SerpAPI free tier
+	•	Tavily limited search tier
+	•	Pinecone free tier
+
+These are not truly free in production contexts.
+
+                         #Not Free (Require Paid API Access)
+
+These always incur cost:
+	•	OpenAI GPT-4/5
+	•	Anthropic Claude
+	•	Google Gemini (beyond quota)
+	•	Commercial web search APIs
+	•	SaaS vector DBs (beyond free tier)
+                         
+                         #What You Can Realistically Configure for Free in VS Code
+
+If your objective is:
+
+Agentic experimentation (no cost)
+
+You can combine:
+	•	Local LLM (Ollama)
+	•	Python tools
+	•	Local FAISS vector DB
+	•	File system tools
+
+This gives you a fully functional agentic system without any external API charges.
+
+                       #Minimal Fully-Free Agentic Stack (Example)
+from langchain_community.chat_models import ChatOllama
+from langchain.agents import create_react_agent, AgentExecutor
+from langchain.tools import tool
+
+# Local model
+llm = ChatOllama(model="llama3")
+
+@tool
+def multiply(a: int, b: int) -> int:
+    return a * b
+
+agent = create_react_agent(llm, tools=[multiply])
+executor = AgentExecutor(agent=agent, tools=[multiply])
+
+result = executor.invoke({"input": "What is 17 times 19?"})
+print(result)
+                         #Critical Reality Check
+
+ChatGPT Plus inside VS Code does not automatically give you API access for LangChain. ChatGPT subscriptions ≠ OpenAI API billing access.
+
+LangChain requires:
+	•	An API key from a model provider
+	•	Or a local LLM backend
+
+These are separate ecosystems.
+                         
+
