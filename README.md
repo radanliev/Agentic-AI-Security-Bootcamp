@@ -1,3 +1,21 @@
+# Agentic AI Security Demos — Bootcamp Labs
+
+[![Agentic AI Security](https://img.shields.io/badge/Agentic%20AI-Security%20Bootcamp-blue.svg)]()
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Status: Educational](https://img.shields.io/badge/status-educational-green.svg)]()
+[![Safety: Offline Only](https://img.shields.io/badge/safety-offline%20only-blue.svg)]()
+
+> **Hands-on, research-driven training** for analysing, attacking, and securing autonomous AI systems — multi-agent observability, prompt injection, LPCI, adversarial evaluation, and red-teaming exercises. All labs run **offline with synthetic fixtures only**.
+
+```mermaid
+flowchart LR
+    A[Week 1: Observability] --> B[Week 2: Data Layer]
+    B --> C[Week 3: Architecture]
+    C --> D[Week 4: Multi-Agent Sec]
+    D --> E[Capstone: Red Team + Hardening]
+```
+
 Homework for Week 1, 2, 3, and 4:
 
 Week 1: 
