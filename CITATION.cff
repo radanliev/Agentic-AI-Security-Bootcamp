@@ -1,8 +1,22 @@
 cff-version: 1.2.0
-title: "Agentic AI Security Demos"
+message: "If you use these Agentic AI Security Bootcamp labs, please cite this repository."
 authors:
-  - family-names: Radanliev
-    given-names: Petar
-    affiliation: University of Oxford
-date-released: 2026
-version: 1.0
+  - family-names: "Radanliev"
+    given-names: "Petar"
+    affiliation: "School of Computing, Newcastle University, UK"
+    email: "Petar.Radanliev@newcastle.ac.uk"
+title: "Agentic AI Security Demos — Hands-On Bootcamp for Autonomous AI Security"
+version: 1.0.0
+date-released: 2026-08-23
+repository-code: "https://github.com/radanliev/Agentic-AI-Security-Demos"
+abstract: "Research-driven training environment for agentic AI security: multi-agent observability, prompt injection, LPCI, adversarial evaluation harnesses, and red-teaming exercises. Synthetic fixtures, offline labs, week-by-week homework."
+license: MIT
+keywords:
+  - "agentic AI"
+  - "AI security"
+  - "prompt injection"
+  - "multi-agent systems"
+  - "adversarial evaluation"
+  - "security bootcamp"
+  - "teaching materials"
+  - "LPCI"
